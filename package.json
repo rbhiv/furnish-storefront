@@ -1,0 +1,17 @@
+{
+  "name": "furnish",
+  "version": "1.0.0",
+  "description": "Furnish - furniture storefront",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node src/seed.js",
+    "bench": "node scripts/bench.js"
+  },
+  "dependencies": {
+    "@sentry/node": "^9.47.2",
+    "express": "^4.19.2",
+    "mongodb": "^6.8.0",
+    "mongodb-memory-server": "^10.1.2"
+  }
+}
