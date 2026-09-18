@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Furnish — Furniture for every room</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">furnish<span>.</span></div>
+    <nav>
+      <a href="#" class="active">Catalog</a>
+      <a href="#">Rooms</a>
+      <a href="#">Sale</a>
+      <a href="#">Stores</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Furniture for every room</h1>
+      <p>Browse our catalog of sofas, chairs, tables and more — with live warehouse availability.</p>
+    </section>
+
+    <section class="filters" aria-label="Catalog filters">
+      <div class="field">
+        <label for="category">Category</label>
+        <select id="category">
+          <option value="sofa" selected>Sofa</option>
+          <option value="chair">Chair</option>
+          <option value="table">Table</option>
+          <option value="bed">Bed</option>
+          <option value="desk">Desk</option>
+          <option value="lamp">Lamp</option>
+          <option value="rug">Rug</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="maxPrice">Max price ($)</label>
+        <input type="number" id="maxPrice" value="2000" min="0" step="100" />
+      </div>
+      <div class="field field-check">
+        <label for="inStock">In stock only</label>
+        <input type="checkbox" id="inStock" checked />
+      </div>
+      <div class="field">
+        <label for="sort">Sort by</label>
+        <select id="sort">
+          <option value="newest" selected>Newest first</option>
+        </select>
+      </div>
+      <button id="browse" class="btn">Browse furniture</button>
+    </section>
+
+    <section id="status" class="status" hidden></section>
+    <section id="results" class="results" aria-live="polite"></section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Furnish Inc. — quality furniture, delivered.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
