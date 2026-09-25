@@ -21,7 +21,13 @@ async function listProducts(req, res) {
     .limit(48)
     .toArray();
 
-  res.json({ tookMs: Date.now() - started, count: products.length, items: products });
+  // enrich with live warehouse stock (single batched query)
+  const skus = products.map((p) => p.sku);
+  const stock = await db.collection("inventory").find({ sku: { $in: skus } }).toArray();
+  const bySku = new Map(stock.map((s) => [s.sku, s.count]));
+  const items = products.map((p) => ({ ...p, stockCount: bySku.get(p.sku) || 0 }));
+
+  res.json({ tookMs: Date.now() - started, count: items.length, items });
 }
 
 module.exports = { listProducts };

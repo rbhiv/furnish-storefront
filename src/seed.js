@@ -63,6 +63,25 @@ async function seed() {
 
   await products.createIndex({ category: 1, price: 1 });
 
+  // Warehouse inventory: one stock record per product, maintained by the
+  // warehouse management service (synced hourly).
+  process.stdout.write("Seeding warehouse inventory…");
+  const inventory = db.collection("inventory");
+  const WAREHOUSES = ["Oakland", "Dallas", "Newark"];
+  for (let from = 0; from < TOTAL; from += BATCH) {
+    const docs = [];
+    for (let i = from; i < Math.min(from + BATCH, TOTAL); i++) {
+      docs.push({
+        sku: `FUR-${Object.keys(CATEGORIES)[i % 7].toUpperCase().slice(0, 3)}-${String(100000 + i)}`,
+        warehouse: pick(WAREHOUSES),
+        count: Math.floor(rand(0, 250)),
+      });
+    }
+    await inventory.insertMany(docs, { ordered: false });
+  }
+  await inventory.createIndex({ sku: 1 });
+  console.log(` done (${await inventory.countDocuments()} records)`);
+
   const counts = await db.collection("products").aggregate([
     { $group: { _id: "$category", n: { $sum: 1 } } },
     { $sort: { _id: 1 } },
