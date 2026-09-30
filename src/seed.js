@@ -63,6 +63,10 @@ async function seed() {
 
   await products.createIndex({ category: 1, price: 1 });
 
+  // Compound index for the storefront browsing query:
+  // equality on category -> sort newest-first -> range on price/stock (ESR).
+  await products.createIndex({ category: 1, createdAt: -1, price: 1, inStock: 1 });
+
   // Warehouse inventory: one stock record per product, maintained by the
   // warehouse management service (synced hourly).
   process.stdout.write("Seeding warehouse inventory…");
