@@ -3,6 +3,7 @@
   "version": "1.3.0",
   "description": "Furnish - furniture storefront",
   "main": "server.js",
+  "engines": { "node": ">=20" },
   "scripts": {
     "start": "node server.js",
     "seed": "node src/seed.js",
